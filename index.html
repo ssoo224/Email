@@ -100,9 +100,9 @@
 
 <div class="container">
     <h1><i class="fas fa-envelope-open-text"></i> مولد نسخ إيميلات</h1>
-    <p>أدخل بريدك الإلكتروني الرئيسي واختر عدد النسخ (من 50 إلى 500) التي تريدها لاستخدامها في المواقع.</p>
+    <p>أدخل بريدك الإلكتروني الرئيسي واختر عدد النسخ (من 1 إلى 1000) التي تريدها لاستخدامها في المواقع.</p>
     <input type="email" id="mainEmail" placeholder="أدخل بريدك الإلكتروني هنا">
-    <input type="number" id="emailCount" placeholder="أدخل عدد النسخ" min="50" max="500">
+    <input type="number" id="emailCount" placeholder="أدخل عدد النسخ" min="1" max="1000">
     <button onclick="generateEmails()"><i class="fas fa-envelope"></i> إنشاء النسخ</button>
     
     <div class="loading" id="loading" style="display: none;"><i class="fas fa-spinner fa-spin"></i> جاري التوليد...</div>
@@ -133,8 +133,8 @@
             return;
         }
 
-        if (emailCount < 50 || emailCount > 500) {
-            alert('يرجى اختيار عدد النسخ بين 50 و 500');
+        if (emailCount < 1 || emailCount > 1000) {
+            alert('يرجى اختيار عدد النسخ بين 1 و 1000');
             loadingDiv.style.display = 'none';
             return;
         }
