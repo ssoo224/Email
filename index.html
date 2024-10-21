@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مولد نسخ إيميلات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Amiri', serif;
+            background-color: #e3f2fd;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: auto;
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: scale(1.05);
+        }
+        h1 {
+            color: #1e88e5;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #555;
+            margin-bottom: 30px;
+        }
+        input[type="email"] {
+            padding: 15px;
+            width: 80%;
+            border: 2px solid #42a5f5;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #42a5f5;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1e88e5;
+        }
+        .email-list {
+            text-align: left;
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: #f1f8e9;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .email-list p {
+            font-size: 16px;
+            color: #424242;
+        }
+        .telegram-container {
+            margin-top: 30px;
+        }
+        .telegram-button {
+            background-color: #0088cc;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .telegram-button i {
+            margin-right: 10px;
+        }
+        .telegram-button:hover {
+            background-color: #0078b1;
+        }
+        .note {
+            margin-top: 20px;
+            color: #f44336;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1><i class="fas fa-envelope-open-text"></i> مولد نسخ إيميلات</h1>
+    <p>أدخل بريدك الإلكتروني الرئيسي وسيتم إنشاء 500 نسخة مختلفة لاستخدامها في المواقع.</p>
+    <input type="email" id="mainEmail" placeholder="أدخل بريدك الإلكتروني هنا">
+    <button onclick="generateEmails()"><i class="fas fa-envelope"></i> إنشاء النسخ</button>
+    
+    <div class="loading" id="loading" style="display: none;"><i class="fas fa-spinner fa-spin"></i> جاري التوليد...</div>
+    
+    <div class="email-list" id="emailList"></div>
+
+    <p class="note">ملاحظة: عند استخدام أي نسخة من هذه النسخ في التسجيل بموقع أو أي شيء آخر، ستصل الرسائل إلى بريدك الإلكتروني الأصلي.</p>
+</div>
+
+<div class="telegram-container">
+    <a href="https://t.me/Scorpion_scorp" class="telegram-button" target="_blank">
+        <i class="fab fa-telegram-plane"></i> انضم لقناتنا على تليجرام
+    </a>
+</div>
+
+<script>
+    function generateEmails() {
+        const mainEmail = document.getElementById('mainEmail').value;
+        const emailListDiv = document.getElementById('emailList');
+        const loadingDiv = document.getElementById('loading');
+        emailListDiv.innerHTML = '';
+        loadingDiv.style.display = 'block';
+
+        if (!mainEmail.includes('@') || !mainEmail.includes('gmail.com')) {
+            alert('يرجى إدخال بريد Gmail صحيح');
+            loadingDiv.style.display = 'none';
+            return;
+        }
+
+        const [username, domain] = mainEmail.split('@');
+        const emailVersions = [];
+
+        // توليد 500 نسخة باستخدام علامة "+" المتوفرة في Gmail
+        for (let i = 1; i <= 500; i++) {
+            emailVersions.push(`${username}+${i}@${domain}`);
+        }
+
+        // عرض الإيميلات المنتجة
+        setTimeout(() => {
+            emailVersions.forEach(email => {
+                const emailElement = document.createElement('p');
+                emailElement.textContent = email;
+                emailListDiv.appendChild(emailElement);
+            });
+            loadingDiv.style.display = 'none';
+        }, 2000);
+    }
+</script>
+
+</body>
+</html>
