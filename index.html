@@ -4,99 +4,169 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مولد نسخ إيميلات</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: 'Amiri', serif;
-            background-color: #e3f2fd;
-            text-align: center;
-            padding: 50px;
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb); /* الخلفية الأولية */
+            background-size: 200% 200%; /* إعداد حجم الخلفية */
+            animation: gradientAnimation 15s ease infinite; /* إضافة الحركة */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 93vh;
+            margin: 50;
+            font-weight: 700;
+            position: relative; /* لجعل العناصر المطلقة متناسبة مع الجسم */
+            overflow: hidden; /* لمنع العناصر من الخروج عن نطاق الجسم */
         }
+        
+        /* حركة التدرج اللوني */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; } /* البداية */
+            50% { background-position: 100% 50%; } /* منتصف الحركة */
+            100% { background-position: 0% 50%; } /* النهاية */
+        }
+
+        /* أشكال البريد والرسائل */
+        .background-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* خلف المحتوى */
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            fill: rgba(255, 255, 255, 0.2); /* لون أبيض شفاف */
+            animation: float 6s ease-in-out infinite; /* تأثير العوم */
+        }
+
+        /* حركة العوم */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0); /* البداية والنهاية */
+            }
+            50% {
+                transform: translateY(-20px); /* الارتفاع إلى أعلى */
+            }
+        }
+
+        /* أشكال محددة */
+        .shape1 { width: 100px; height: 100px; top: 20%; left: 10%; }
+        .shape2 { width: 80px; height: 80px; top: 60%; right: 15%; }
+        .shape3 { width: 120px; height: 120px; top: 30%; left: 60%; }
+        .shape4 { width: 90px; height: 90px; top: 70%; right: 5%; }
+        .shape5 { width: 110px; height: 110px; top: 15%; left: 75%; }
+
         .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
-            margin: auto;
-            transition: transform 0.3s ease;
-        }
-        .container:hover {
-            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.9); /* لون أبيض شفاف قليلاً */
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            position: relative; /* لجعل المحتوى فوق الأشكال */
+            z-index: 1; /* أمام الأشكال */
         }
         h1 {
-            color: #1e88e5;
-            margin-bottom: 20px;
+            color: #3a7ca5;
+            font-size: 26px;
+            font-weight: 900;
         }
         p {
-            color: #555;
-            margin-bottom: 30px;
+            color: #6b6b6b;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 0;
+            font-weight: 700;
         }
         input[type="email"], input[type="number"] {
-            padding: 15px;
-            width: 80%;
-            border: 2px solid #42a5f5;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 16px;
+            padding: 12px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #c8d6e5;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: 700;
+        }
+        input[type="email"]:focus, input[type="number"]:focus {
+            border-color: #3a7ca5;
+            box-shadow: 0px 0px 5px rgba(58, 124, 165, 0.3);
         }
         button {
-            background-color: #42a5f5;
+            background: linear-gradient(135deg, #42a5f5, #3a7ca5);
             color: white;
             border: none;
-            padding: 15px 30px;
-            margin-top: 20px;
+            padding: 12px 25px;
             cursor: pointer;
-            border-radius: 10px;
-            font-size: 18px;
-            transition: background-color 0.3s;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: background 0.3s;
+            width: 100%;
+            max-width: 400px;
+            font-weight: 700;
         }
         button:hover {
-            background-color: #1e88e5;
+            background: linear-gradient(135deg, #3a7ca5, #42a5f5);
         }
         .email-list {
             text-align: left;
-            margin-top: 20px;
+            margin-top: 15px;
             max-height: 200px;
             overflow-y: auto;
-            background-color: #f1f8e9;
-            border-radius: 10px;
-            padding: 10px;
+            background: #f0f4f8;
+            border-radius: 8px;
+            padding: 15px;
+            width: 100%;
         }
         .email-list p {
-            font-size: 16px;
+            font-size: 14px;
             color: #424242;
-        }
-        .telegram-container {
-            margin-top: 30px;
-        }
-        .telegram-button {
-            background-color: #0088cc;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 18px;
-            display: inline-flex;
-            align-items: center;
-            text-decoration: none;
-        }
-        .telegram-button i {
-            margin-right: 10px;
-        }
-        .telegram-button:hover {
-            background-color: #0078b1;
+            margin: 5px 0;
+            font-weight: 700;
         }
         .note {
-            margin-top: 20px;
-            color: #f44336;
-            font-size: 16px;
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: center;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3a7ca5, #42a5f5); /* متدرج لوني */
+            -webkit-background-clip: text;
+            color: transparent;
         }
     </style>
 </head>
 <body>
+
+<div class="background-shapes">
+    <svg class="shape shape1">
+        <rect width="100%" height="100%" rx="15" />
+    </svg>
+    <svg class="shape shape2">
+        <rect width="100%" height="100%" rx="15" />
+    </svg>
+    <svg class="shape shape3">
+        <rect width="100%" height="100%" rx="15" />
+    </svg>
+    <svg class="shape shape4">
+        <rect width="100%" height="100%" rx="15" />
+    </svg>
+    <svg class="shape shape5">
+        <rect width="100%" height="100%" rx="15" />
+    </svg>
+</div>
 
 <div class="container">
     <h1><i class="fas fa-envelope-open-text"></i> مولد نسخ إيميلات</h1>
@@ -110,12 +180,6 @@
     <div class="email-list" id="emailList"></div>
 
     <p class="note">ملاحظة: عند استخدام أي نسخة من هذه النسخ في التسجيل بموقع أو أي شيء آخر، ستصل الرسائل إلى بريدك الإلكتروني الأصلي.</p>
-</div>
-
-<div class="telegram-container">
-    <a href="https://t.me/Scorpion_scorp" class="telegram-button" target="_blank">
-        <i class="fab fa-telegram-plane"></i> انضم لقناتنا على تليجرام
-    </a>
 </div>
 
 <script>
@@ -142,12 +206,10 @@
         const [username, domain] = mainEmail.split('@');
         const emailVersions = [];
 
-        // توليد النسخ باستخدام علامة "+" المتوفرة في Gmail
         for (let i = 1; i <= emailCount; i++) {
             emailVersions.push(`${username}+${i}@${domain}`);
         }
 
-        // عرض الإيميلات المنتجة
         setTimeout(() => {
             emailVersions.forEach(email => {
                 const emailElement = document.createElement('p');
@@ -158,6 +220,5 @@
         }, 2000);
     }
 </script>
-
 </body>
 </html>
